@@ -1,3 +1,7 @@
+# Directories
+Resources/bootstrap/
+.idea
+
 # Prerequisites
 *.d
 
