@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<script>
+    $(function(){
+        let $Button = $('ons-button');
+        // Initialization code
+        $('#hero').append($Button);
+
+        $('ons-button').on('click', function(e) {
+            ons.notification.alert('Button is tapped!');
+        })
+    });
+
+    $('ons-button')
+</script>
+
+<ons-button>Click me!</ons-button>
+
+<section id='hero' class="hero">
+    <div class="hero-body is-primary">
+        <h1>Stock Data Entry</h1>
+
+
+    </div>
+</section>
+
+</body>
+</html>

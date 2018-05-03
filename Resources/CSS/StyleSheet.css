@@ -1,0 +1,58 @@
+body {
+    background: #e9ecef;
+}
+
+nav {
+    top: 15px;
+}
+
+input:hover,
+textarea:hover,
+select:hover,
+.input-group-text:hover {
+    background-color: #D9D9D9;
+
+}
+
+label {
+    margin-top: 5px;
+
+}
+:invalid, :valid, .input-group-text {
+    box-shadow: 1px 1px 0 0 currentColor;
+}
+
+
+input:focus,
+textarea:focus {
+    border-color: var(--success) !important;
+    border-width: 2px;
+}
+
+
+.card-body {
+    width: 30%;
+    height: 125px;
+    margin: 5px;
+    background-color: #233052;
+    color: white;
+    border: 1px outset #233046;
+}
+
+.card-body:hover {
+    background-color: #233046;
+    border: 1px solid var(--success);
+}
+
+.card-title {
+    color: #fcf8e3
+}
+
+#selectedPatterns {
+    margin: 0 0 15px 0;
+}
+
+.checkboxButton {
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link href=../../Resources/CSS/StyleSheet.css type="text/css" rel="stylesheet">
+    <link rel=stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+          integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <title>Stock Entry</title>
+</head>
+<body style="background-color: #e9ecef;">
+
+<div id="formProgress" class="progress fixed-top" style="width:100%;border-radius: 0;">
+    <div id="formProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+         role="progressbar" aria-valuenow="0"
+         aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+        0% Complete
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <a class="navbar-brand" href="#">Stock Risk Analysis</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto navbar-dark">
+            <li class="nav-item"><a class="nav-link" href="#">Briefcase</a></li>
+            <li class="nav-item active"><a class="nav-link" href="#">Add New Stock<span class="sr-only">(current)</span></a>
+            </li>
+
+            <!--<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else </a>
+                    </div>
+                </li><!-->
+        </ul>
+        <form id="searchForm" class="form-inline my-2 my-lg-0" onsubmit="">
+            <input id="searchBar" class="form-control form-control-danger mr-sm-2" type="search" placeholder="Search"
+                   aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div id="jumbotron" class="jumbotron shadow">
+    <h1 class="display-3">Risk Analysis System</h1>
+    <p class="lead">Today is the present, use it wisely</p>
+    <hr class="my-2">
+    <p>It uses utility classes for typography and
+        spacing to space content out within the larger container.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#!" role="button" onclick="">Some action</a>
+    </p>
+</div>
+
+
+    <form id="entryForm" class="was-validated form-group form-control" name="entryForm" enctype="text/plain"
+    action="" method="post" style="background: #e9ecef; color: #383d41;"
+    novalidate>
+
+        <h1 class="text-lg-center display-3">Stock Data Entry</h1>
+        <div class="container">
+        <div class="form-row">
+                <div class="col-sm">
+                    <label class="form-control-label" for="StockName">Entry Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-gbp"></i></div>
+                        </div>
+                        <input type="text" class="form-control form-control-danger mb-0" id="StockName"
+                               placeholder="Apple, Inc." required>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="form-control-label" for="StockEntryDate">Price Objective</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-gbp"></i></div>
+                        </div>
+                        <input type="number" class="form-control form-control-danger mb-0" id="StockPriceObjective"
+                               placeholder="500.00" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm">
+                    <label class="form-control-label" for="StockSymbol">Stock Symbol</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-globe"></i></div>
+                        </div>
+                        <input type="text" class="form-control form-control-danger mb-0" id="StockSymbol"
+                               placeholder="AAPL" required>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label class="form-control-label" for="StockEntryDate">Stock Entry Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-calendar-plus-o"></i></div>
+                        </div>
+                        <input type="date" class="form-control form-control-danger mb-0" id="StockEntryDate"
+                               placeholder="Enter Date" required>
+                    </div>
+                </div>
+
+
+                <div class="col-sm">
+                    <label class="form-control-label" for="StockTimeFrame">Select Time Frame</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                        <select id="StockTimeFrame" class="custom-select" required>
+                            <option value="">Time Frame</option>
+                            <option value="Live">Live</option>
+                            <option value="0.01HR">1 Minute</option>
+                            <option value="0.05HR">5 Minutes</option>
+                            <option value="0.10HR">10 Minutes</option>
+                            <option value="0.15HR">15 Minutes</option>
+                            <option value="0.5HR">30 Minutes</option>
+                            <option value="1HR">1 Hours</option>
+                            <option value="2HR">2 Hours</option>
+                            <option value="3HR">3 Hours</option>
+                            <option value="6HR">6 Hours</option>
+                            <option value="1D">1 Day</option>
+                            <option value="5D">5 Days</option>
+                            <option value="1W">1 Weeks</option>
+                            <option value="2W">2 Weeks</option>
+                            <option value="3W">3 Weeks</option>
+                            <option value="8W">8 Weeks</option>
+                            <option value="24W">24 Weeks</option>
+                            <option value="6M">6 Months</option>
+                            <option value="1Y">1+ Year(s)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <div class="form-row">
+            <div class="col-sm">
+                <label class="form-control-label" for="StockChartUpload">Drag and Drop Chart Image</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-upload"></i></div>
+                    </div>
+                    <input id="StockChartUpload" name="input-b3[]" type="file" class="file" multiple
+                           data-show-upload="true" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                    <p style="text-align: center;"><label class="custom-file-label form-control-label"
+                                                          for="StockChartUpload">Drag &amp; Drop Image</label></p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+        <div class="dropdown-divider"></div>
+
+        <div class="container">
+        <h4><label class="form-control-label" for="ChartPatterns">Chart Pattern(s)</label></h4>
+        <div class="btn-group-toggle" id="ChartPatterns" role="group" data-toggle="buttons">
+                <div class="form-row">
+                    <div class="col-sm">
+
+                         <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Double Top Reversal</label>
+                         <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Double Bottom Reversal</label>
+                         <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Head And Shoulders Top</label>
+                    </div>
+                    <div class="col-sm">
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Head And Shoulders bottom</label>
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Triple Top Reversal</label>
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Triple Bottom Reversal</label>
+
+                    </div>
+                    <div class="col-sm">
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Bump and Run Reversal</label>
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Flag, Pennant</label>
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Ascending Triangle</label>
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm">
+                        <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Descending Triangle</label>
+                        <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Rectangle</label>
+                        <label class="btn btn-outline-danger checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Price Channel</label>
+
+                    </div>
+                    <div class="col-sm">
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Falling Wedge</label>
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Rising Edge</label>
+                        <label class="btn btn-outline-warning checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Rounding Bottom</label>
+                    </div>
+                    <div class="col-sm">
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Measured Move - Bullish</label>
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Measured Move - Bearish</label>
+                        <label class="btn btn-outline-success checkboxButton"><input type="checkbox" name="chartPatterns" autocomplete="off" checked hidden>Cup and handle</label>
+                    </div>
+                </div>
+            </div>
+        <label class="form-control-label" for="selectedPatterns"></label>
+        <h4><label class="form-control-label" for="selectedPatterns">Selected Patterns</label></h4>
+        <div class="form-control" id="selectedPatterns"
+             style="background-color: var(--light);color:#333;border-radius:.25rem;">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <div class="input-group-text"><i class="fa fa-check-circle"></i></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm">
+                <label class="form-control-label" for="StockEdgeEntry">The Edge</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-info"></i></div>
+                    </div>
+                    <textarea class="form-control" id="StockEdgeEntry" rows=2
+                              placeholder="Indicators, Symbols, Measured Moves"></textarea>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-sm">
+                <label class="form-control-label" for="id">Hello Label</label>
+                <div class="input-group">
+                    <div class="input-group-text"><i class="fa fa-heart"></i></div>
+                    <input type="text" class="form-control mb-0" id="id"
+                           placeholder="" required></div>
+                <div class="input-group-text"><i class="fa fa-heart"></i></div>
+            </div>
+
+        </div>
+
+        <div class="container form-control" id="primarySignals"
+             style="text-align: center">
+            <label class="form-control-label" for="primarySignals">Primary Signals</label>
+            <section id="SectionPrimarySignals">
+                <div class="form-row">
+                    <div class="card-body">
+                        <h5 class="card-title">Breakout Quality</h5>
+                        <div class="btn-group btn-group-toggle" id="Breakout Quality" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                            <label class="btn btn-outline-warning">
+                                <input type="radio" name="options" autocomplete="off" checked>2
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>3
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Volume Quality</h5>
+                        <div class="btn-group btn-group-toggle" id="Volume Quality" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                            <label class="btn btn-outline-warning">
+                                <input type="radio" name="options" autocomplete="off" checked>2
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>3
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">SMA 89 Daily</h5>
+                        <div class="btn-group btn-group-toggle" id="SMA 89 Daily" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                            <label class="btn btn-outline-warning">
+                                <input type="radio" name="options" autocomplete="off" checked>2
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>3
+                            </label>
+                        </div>
+                    </div>
+                </div><!--========================================<!===============================-->
+                <div class="form-row">
+                    <div class="card-body">
+                        <h5 class="card-title">OBV</h5>
+                        <div class="btn-group btn-group-toggle" id="OBV" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                            <label class="btn btn-outline-warning">
+                                <input type="radio" name="options" autocomplete="off" checked>2
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>3
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">MACDs</h5>
+                        <div class="btn-group btn-group-toggle" id="MACDs" data-toggle="buttons">
+
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>0
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">RSI</h5>
+                        <div class="btn-group btn-group-toggle" id="RSI" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>0
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                        </div>
+                    </div>
+                </div><!--========================================<!===============================-->
+                <div class="form-row">
+                    <div class="card-body">
+                        <h5 class="card-title">Williams</h5>
+                        <div class="btn-group btn-group-toggle" id="Williams" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>0
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Accum/Dist</h5>
+                        <div class="btn-group btn-group-toggle" id="Accum/Dist" data-toggle="buttons">
+                            <label class="btn btn-outline-danger">
+                                <input type="radio" name="options" autocomplete="off" checked>0
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="options" autocomplete="off" checked>1
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Total</h5>
+                        <div class="" id="primarySignalsTotal"></div>
+                    </div>
+                </div>
+            </section>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="Location" class="form-control-label">Location</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-address-book"></i></div>
+                        </div>
+                        <input id="Location" name="Location" placeholder="Home" type="text"
+                               class="form-control form-control-danger ">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="CurrentTime" class="form-control-label">Current Time</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                        <input id="CurrentTime" name="CurrentTime" type="text" class="form-control form-control-danger "
+                               required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="BuyDetails" class="form-control-label">Buy Details</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                        <input id="BuyDetails" name="BuyDetails" placeholder="1000" type="text"
+                               class="form-control form-control-danger ">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="BuyDetailsCost" class="form-control-label">Buy Details Cost</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                        </div>
+                        <input id="BuyDetailsCost" name="BuyDetailsCost" type="text"
+                               class="form-control form-control-danger " required="required">
+                    </div>
+                </div>
+            </div>
+            <label for="EmotionalStates" class="form-control-label">Emotional State</label>
+            <div id="EmotionalStates" class="form-group form-row">
+                <div class="col-sm">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Tired" aria-hidden="true"></label>
+                                <input id="Tired" type="checkbox" aria-label="Tired">
+                            </div>
+                        </div>
+                        <input id="TiredValue" type="text" class="form-control" readonly="readonly" aria-label="Tired"
+                               value="Tired">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Cautious" aria-hidden="true"></label>
+                                <input id="Cautious" type="checkbox" aria-label="Cautious">
+                            </div>
+                        </div>
+                        <input id="CautiousValue" type="text" class="form-control" readonly="readonly" aria-label="Cautious" value="Cautious">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Calm" aria-hidden="true"></label>
+                                <input id="Calm" type="checkbox" aria-label="Calm">
+                            </div>
+                        </div>
+                        <input id="CalmValue" type="text" class="form-control" readonly="readonly" aria-label="Calm" value="Calm">
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Aware" aria-hidden="true"></label>
+                                <input id="Aware" type="checkbox" aria-label="Aware">
+                            </div>
+                        </div>
+                        <input id="AwareValue" type="text" class="form-control" readonly="readonly" aria-label="Aware" value="Aware">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Quietly" aria-hidden="true"></label>
+                                <input id="Quietly" type="checkbox" aria-label="Quietly">
+                            </div>
+                        </div>
+                        <input id="QuietlyValue" type="text" class="form-control" readonly="readonly" aria-label="Quietly" value="Quietly">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Confident" aria-hidden="true"></label>
+                                <input id="Confident" type="checkbox" aria-label="Confident">
+                            </div>
+                        </div>
+                        <input id="ConfidentValue" type="text" class="form-control" readonly="readonly" aria-label="Confident" value="Confident">
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Complacent" aria-hidden="true"></label>
+                                <input id="Complacent" type="checkbox" aria-label="Complacent">
+                            </div>
+                        </div>
+                        <input id="ComplacentValue" type="text" class="form-control" readonly="readonly" aria-label="Complacent" value="Complacent">
+                    </div>
+
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Anxious" aria-hidden="true"></label>
+                                <input id="Anxious" type="checkbox" aria-label="Anxious">
+                            </div>
+                        </div>
+                        <input id="AnxiousValue" type="text" class="form-control" readonly="readonly" aria-label="Anxious" value="Anxious">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <label for="Bored" aria-hidden="true"></label>
+                                <input id="Bored" type="checkbox" aria-label="Bored">
+                            </div>
+                        </div>
+                        <input id="BoredValue" type="text" class="form-control" readonly="readonly" aria-label="Bored" value="Bored">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label class="col-4">Checkboxes</label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Not Comfortable"
+                               required="required">
+
+                        <span class="custom-control-description">Not Comfortable</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Some Doubts"
+                               required="required">
+
+                        <span class="custom-control-description">Some Doubts</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Okay But Questions"
+                               required="required">
+
+                        <span class="custom-control-description">Okay But Questions</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Reasonable Risk"
+                               required="required">
+
+                        <span class="custom-control-description">Reasonable Risk</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Looks Solid"
+                               required="required">
+
+                        <span class="custom-control-description">Looks Solid</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="checkbox" type="checkbox" class="form-check-input" value="Very Comfortable"
+                               required="required">
+
+                        <span class="custom-control-description">Very Comfortable</span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="StockBuyTarget" class="form-control-label">Hourly Buy Target</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <input id="StockBuyTarget" name="StockBuyTarget" placeholder="1000" type="text"
+                               required="required" class="form-control form-control-danger "
+                               aria-describedby="StockBuyTargetHelpBlock">
+                        <div class="input-group-prepend append">
+                            <i class="fa fa-at"></i>
+                        </div>
+                    </div>
+                    <span id="StockBuyTargetHelpBlock" class="form-text text-muted">(Lower Time Frame)</span>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="StopLevel" class="form-control-label">Stop Level Set</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <input id="StopLevel" name="StopLevel" placeholder="100" type="text"
+                               class="form-control form-control-danger " required="required">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-at"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="StopLevelSellCost" class="form-control-label">Stop Level Sell Cost</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <input id="StopLevelSellCost" name="StopLevelSellCost" type="text" required="required"
+                               class="form-control form-control-danger ">
+                        <div class="input-group-prepend append">text addon</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="TargetSell" class="form-control-label">Target Sell</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <input id="TargetSell" name="TargetSell" placeholder="100" type="text"
+                               class="form-control form-control-danger ">
+                        <div class="input-group-prepend append">
+                            <i class="fa fa-at"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="TargetPriceSell" class="form-control-label">Target Price Sell</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">£</div>
+                        <input id="TargetPriceSell" name="TargetPriceSell" placeholder="£50.00" type="text"
+                               class="form-control form-control-danger " required="required">
+                        <div class="input-group-prepend append">
+                            <i class="fa fa-at"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="MaxGain" class="form-control-label">Max Gain</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-area-chart"></i>
+                        </div>
+                        <input id="MaxGain" name="MaxGain" placeholder="1.2M" type="text"
+                               class="form-control form-control-danger ">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="TargetSellRatio" class="form-control-label">Target Sell Ratio</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-trophy"></i>
+                        </div>
+                        <input id="TargetSellRatio" name="TargetSellRatio" placeholder="1:1" type="text"
+                               class="form-control form-control-danger " required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="TargetSellTotal" class="form-control-label">Target Sell Total</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-area-chart"></i>
+                        </div>
+                        <input id="TargetSellTotal" name="TargetSellTotal" type="text"
+                               class="form-control form-control-danger ">
+                        <div class="input-group-prepend append">
+                            <i class="fa fa-address-book"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="SellMaxRisk" class="form-control-label">Target Sell Max Risk</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <input id="SellMaxRisk" name="SellMaxRisk" type="text" class="form-control form-control-danger "
+                               required="required">
+                        <div class="input-group-prepend append">addon</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="FinalNotes" class="form-control-label">Final Notes</label>
+                    <textarea id="FinalNotes" name="FinalNotes" cols="40" rows="3" class="form-control"
+                              aria-describedby="FinalNotesHelpBlock"></textarea>
+                    <span id="FinalNotesHelpBlock"
+                          class="form-text text-muted">How well do you think this trade went?</span>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="ActualSellDetails" class="form-control-label">Actual Sell Details</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-trophy"></i>
+                        </div>
+                        <input id="ActualSellDetails" name="ActualSellDetails" type="text"
+                               class="form-control form-control-danger " required="required">
+                        <div class="input-group-prepend append">
+                            <i class="fa fa-address-book"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label class="col-4">Reasoning</label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="custom-checkbox form-check-input" value="Poor Risk/Reward">
+                        <span class="custom-control-description">Poor Risk/Reward</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Not Enough Volume">
+                        <span class="custom-control-description">Not Enough Volume</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Entered Too Soon/Late">
+                        <span class="custom-control-description">Entered Too Soon/Late</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Exited Too Soon/Late">
+                        <span class="custom-control-description">Exited Too Soon/Late</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Didn’t Take System Trade">
+                        <span class="custom-control-description">Didn’t Take System Trade</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Wrong Position Size">
+                        <span class="custom-control-description">Wrong Position Size</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Not in System/Bent System">
+                        <span class="custom-control-description">Not in System/Bent System</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input" value="Incorrect Stop Placement">
+                        <span class="custom-control-description">Incorrect Stop Placement</span>
+                    </label>
+                    <label class="custom-control-inline custom-checkbox form-check-label">
+                        <input name="Reasoning" type="checkbox" aria-describedby="ReasoningHelpBlock"
+                               required="required" class="form-check-input"
+                               value="Higher Time Frame Chart Have Return Better Signals?">
+                        <span class="custom-control-description">Higher Time Frame Chart Have Return Better Signals?</span>
+                    </label>
+                    <span id="ReasoningHelpBlock" class="form-text text-muted">Check all that apply.</span>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="FailSuccessReasoning" class="form-control-label">Sell Signals and Reasons This Trade
+                        Succeeded/Failed</label>
+                    <textarea id="FailSuccessReasoning" name="FailSuccessReasoning" cols="40" rows="3"
+                              class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="TotalProfit" class="form-control-label">Total Profit</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <input id="TotalProfit" name="TotalProfit" type="text"
+                               class="form-control form-control-danger ">
+                        <div class="input-group-prepend append">.54</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="LossTotal" class="form-control-label">Loss Total</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <input id="LossTotal" name="LossTotal" type="text" class="form-control form-control-danger ">
+                        <div class="input-group-prepend append">addon</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-sm">
+                    <label for="RememberEvents" class="form-control-label">Patterns &amp; Events to Remember</label>
+                    <textarea id="RememberEvents" name="RememberEvents" cols="40" rows="3"
+                              class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="offset-4 col-sm">
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            <div class="container form-control" id="">
+                <!-- TradingView Widget BEGIN
+                <div class="tradingview-widget-container" style="width:100%;height:20%;">
+                    <div id="LiveChart">
+                        <div class="tradingview-widget-copyright"><a href="https://uk.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"></a></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                            new TradingView.widget(
+                                {
+                                   "width":"100%",
+                                   "symbol":"AAPL",
+                                   "interval":"D",
+                                   "timezone":"GMT",
+                                   "theme":"light",
+                                   "style":"1",
+                                   "locale":"uk",
+                                   "toolbar_bg":"#f1f3f6",
+                                   "enable_publishing": true,
+                                   "withdateranges": true,
+                                   "hide_side_toolbar": false,
+                                   "allow_symbol_change": true,
+                                   "details": true,
+                                   "hotlist": true,
+                                   "calendar": true,
+                                   "container_id":"LiveChart"
+                                }
+                            );
+                        </script>
+                    </div>
+                    <!-- TradingView Widget END -->
+            </div>
+        </div>
+        <div id="ActionButtons" class="btn-group-lg" style="margin-top:10px;">
+            <button type="button"
+                    onclick="createAlert('ActionButtons', 'warning', 'Reset Complete', 'Entry form has been cleared successfully!');"
+                    class="btn btn-danger btn-block">Reset <span><i class="fa fa-window-close"></i></span></button>
+            <button type="button" onclick="" class="btn btn-info btn-block">Info <span><i class="fa fa-info"></i></span>
+            </button>
+            <button type="submit" class="btn btn-success btn-block">Submit <span><i
+                    class="fa fa-check-square"></i></span></button>
+        </div>
+    </form>
+<!--                ==Scripts==             -->
+<script src="../JS/Utility.js"></script>
+<script src="https://use.fontawesome.com/8836243a76.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
