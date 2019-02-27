@@ -1,5 +1,6 @@
 export as namespace fontawesome;
-import {IconDefinition, IconLookup, IconName, IconPrefix, IconPack } from '@fortawesome/fontawesome-common-types';
+import {IconDefinition, IconLookup, IconName, IconPack, IconPrefix} from '@fortawesome/fontawesome-common-types';
+
 export {IconDefinition, IconLookup, IconName, IconPrefix, IconPack } from '@fortawesome/fontawesome-common-types';
 export const dom: DOM;
 export const library: Library;
@@ -29,7 +30,7 @@ declare const api: {
     ) => void
   ): Layer;
   icon(icon: IconName | IconLookup, params?: IconParams): Icon;
-}
+};
 export default api;
 
 export type IconProp = IconName | [IconPrefix, IconName] | IconLookup;

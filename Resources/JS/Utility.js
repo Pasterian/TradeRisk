@@ -1,8 +1,6 @@
-let inputs = ["StockName",
-              "StockDate",
-              "ChartType"];
+var document = document;
 
-let primarySignals = {
+var primarySignals = {
     "Breakout Quality": null,
     "Volume Quality": null,
     "SMA 89 Daily": null,
@@ -13,7 +11,7 @@ let primarySignals = {
     "Accum/Dist": null
 };
 
-let chartPatterns = [
+var chartPatterns = [
     "Double Top Reversal", "Double Bottom Reversal",
     "Head And Shoulders Top", "Head And Shoulders bottom",
     "Falling Wedge", "Rising Wedge", "Rounding Bottom",
@@ -25,35 +23,42 @@ let chartPatterns = [
 ];
 
 
-let stockName;
-let selectedChartPatterns = [];
-let primarySignalScore = 0;
-let stockData = {};
-let percentage;
+var stockName;
+var selectedChartPatterns = [];
+var primarySignalScore = 0;
+var stockData = {};
+var percentage;
+
 
 function writeData(elem) {
-    let id = elem.id;
+    "use strict";
+    var id = elem.id;
     stockData[id] = document.getElementById(id).value;
     console.log(stockData);
 }
 
 function getID(id) {
+    "use strict";
     return document.getElementById(id);
 }
 
 function getName(name) {
+    "use strict";
     return document.getElementById(name);
 }
 
-function l(msg) {
+function printmsg(msg) {
+    "use strict";
     return console.log(msg);
 
 }
+
 function getDate() {
-    let date = new Date();
-    let month = date.getMonth();
-    let day = date.getDate();
-    let year = date.getFullYear();
+    "use strict";
+    var date = new Date();
+    var month = date.getMonth();
+    var day = date.getDate();
+    var year = date.getFullYear();
 
     if (month.length !== 2) {
         month = "0" + month;
@@ -67,30 +72,31 @@ function getDate() {
 }
 
 function selectChartPattern(btn) {
-    let target = getID('selectedPatterns');
+    "use strict";
+    var target = getID('ChartPatterns');
     //Create Elements
-    let li = document.createElement('li');
-    let id = document.createAttribute('id');
+    var li = document.createElement('li');
+    var id = document.createAttribute('id');
 
     id.value = btn.id;
-    li = function() {
+    li = function () {
+        "use strict";
         li.setAttributeNode(id);
         li.innerText = id.toString();
         return li;
     };
 
-
     //CREATE LIST ITEM
     switch (btn.getAttribute('class')) {
 
-        case('btn btn-primary'):
-            btn.setAttribute('class', 'btn btn-success');
+        case ('btn btn-primary'):
+            btn.setAttribute('class', 'btn btn-success checkboxButton');
             selectedChartPatterns.push(id.toString());
             target.appendChild(li);
             break;
 
-        case('btn btn-success'):
-            btn.setAttribute('class', 'btn btn-primary');
+        case ('btn btn-success'):
+            btn.setAttribute('class', 'btn btn-primary checkboxButton');
             selectedChartPatterns.pop(id.toString());
             target.removeChild(li);
             break;
@@ -102,9 +108,10 @@ function selectChartPattern(btn) {
 }
 
 function setPrimarySignalScore(btn) {
-    let btnClass = btn.getAttribute('class');
-    let id = btn.parentNode.id;
-    let score = btn.innerText;
+    "use strict";
+    var btnClass = btn.getAttribute('class');
+    var id = btn.parentNode.id;
+    var score = btn.innerText;
 
     switch (btnClass) {
         case "btn btn-primary":
@@ -128,21 +135,21 @@ function setPrimarySignalScore(btn) {
     getID('primarySignalsTotal').innerHTML = "<p><b>$/20</b></p>".replace('$', primarySignalScore);
 }
 
-
 function createAlert(type, title, msg) {
-    let alert = document.createElement('div');
+    "use strict";
+    var alert = document.createElement('div');
     alert.setAttribute('class', 'alert alert-{type} alert-dismissible fade show'.replace('{type}', type));
     alert.setAttribute('role', 'alert');
 
-    let alertTitle = document.createElement('strong');
+    var alertTitle = document.createElement('strong');
     alertTitle.innerText = "{title}".replace('{title}', title);
     alert.appendChild(alertTitle);
 
-    let alertMessage = document.createElement('a');
+    var alertMessage = document.createElement('a');
     alertMessage.innerText = "| {msg}".replace('{msg}', msg);
 
     alert.appendChild(alertMessage);
-    let alertButton = document.createElement('button');
+    var alertButton = document.createElement('button');
     alertButton.setAttribute('type', 'button');
     alertButton.setAttribute('class', 'close');
     alertButton.setAttribute('data-dismiss', 'alert');
@@ -150,7 +157,7 @@ function createAlert(type, title, msg) {
     alertButton.setAttribute('aria-label', 'Close');
     alert.appendChild(alertButton);
 
-    let alertSpan = document.createElement('span');
+    var alertSpan = document.createElement('span');
     alertSpan.setAttribute('aria-hidden', 'true');
     alertSpan.innerText = '&amp;times';
     alertButton.append(alertSpan);
@@ -163,63 +170,28 @@ function createAlert(type, title, msg) {
 function updatePercentage(percent) {
     'use strict';
 
-    let progressBar = document.getElementById('formProgressBar');
-    let baseClass = 'progress-bar progress-bar-striped progress-bar-animated ';
+    var progressBar = document.getElementById('formProgressBar');
+    var baseClass = 'progress-bar bg-success';
     progressBar.setAttribute('aria-volumenow', percent);
     progressBar.setAttribute('style', 'width:{p}%;'.replace('{p}', percent));
-    progressBar.innerText="{p}% Complete".replace('{p}', percent);
 
-    let success = 'var(--success)';
-    let warning = 'var(--warning)';
-    let danger = 'var(--danger)';
-
-    progressBar.classList = baseClass;
-
-    let quarter = Boolean(percent >= 25);
-    let half = Boolean(percent >= 50);
-    let third = Boolean(percent >= 75);
-
-if(quarter) {
-    l('danger');
-    progressBar.style.backgroundColor = danger;
+    var success = 'var(--success)';
+    var warning = 'var(--warning)';
+    var danger = 'var(--danger)';
 
 }
 
-if(half) {
-    l('warning');
-    progressBar.style.backgroundColor = warning;
-
-}
-
-if(third) {
-    l('success')
-    progressBar.style.backgroundColor = success;
-
-
-
-}
-
-}
-
-document.onchange = function() {
+document.onchange = function () {
     "use strict";
-        let validInputs = document.entryForm.querySelectorAll('input:valid');
-        let invalidInputs = document.entryForm.querySelectorAll('input:invalid');
+    var validInputs = document.entryForm.querySelectorAll('valid');
+    var invalidInputs = document.entryForm.querySelectorAll('invalid');
 
-        percentage = Math.round(validInputs.length / invalidInputs.length * 100);
-        updatePercentage(percentage);
+    percentage = Math.round(validInputs.length / invalidInputs.length * 100);
+    updatePercentage(percentage);
 
-    };
+    for (var i; i < validInputs.length; i += 1) {
+        var output = validInputs[i];
+        printmsg(output);
 
-/*
-FUNCTION SetAnswer:
-
-ON CLICK:
-    IF BTN IS NOT ALREADY ACTIVE:
-        ADD NAME AND VALUE TO DICT
-        CHANGE COLOR
-    IF ACTIVE:
-        REMOVE CURRENT PRESSED FROM DICT
-        CHANGE TO ORIGINAL COLOR
-        ADD NEW STATE TO DICT
-*/
+    }
+};

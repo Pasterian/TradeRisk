@@ -1,5 +1,6 @@
 body {
     background: #e9ecef;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 nav {
@@ -14,11 +15,19 @@ select:hover,
 
 }
 
+.col {
+    margin: 0 0 10px 10px;
+}
+
 label {
-    margin-top: 5px;
+    margin-top: 10px;
+    font-weight: 500;
 
 }
-:invalid, :valid, .input-group-text {
+
+:invalid,
+:valid,
+.input-group-text {
     box-shadow: 1px 1px 0 0 currentColor;
 }
 
@@ -34,18 +43,18 @@ textarea:focus {
     width: 30%;
     height: 125px;
     margin: 5px;
-    background-color: #233052;
-    color: white;
-    border: 1px outset #233046;
+    background-color: var(--light);
+    color: #32383e;
+    border: 1px outset #D9D9D9;
 }
 
 .card-body:hover {
-    background-color: #233046;
+    background-color: #d3d9df;
     border: 1px solid var(--success);
 }
 
 .card-title {
-    color: #fcf8e3
+    color: #32383e;
 }
 
 #selectedPatterns {
@@ -55,4 +64,23 @@ textarea:focus {
 .checkboxButton {
     width: 100%;
     text-align: center;
+}
+
+h1.display-3 {
+    text-align: center;
+}
+
+h4 {
+    text-align: start;
+
+}
+
+input:checked + span {
+    background: #fff;
+}
+
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-success {
+    color: black !important;
 }
