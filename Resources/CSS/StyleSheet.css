@@ -84,3 +84,25 @@ input:checked + span {
 .btn-outline-success {
     color: black !important;
 }
+
+#EmbeddedImage {
+    width: 101%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+.modal-dialog,
+modal-body {
+    width: 100% !important;
+    height: 100% !important;
+
+
+}
+
+.modal-content,
+modal-body {
+    height: auto !important;
+    min-height: 100% !important;
+    border-radius: 0 !important;
+}

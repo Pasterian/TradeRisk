@@ -1,28 +1,4 @@
 var document = document;
-
-var primarySignals = {
-    "Breakout Quality": null,
-    "Volume Quality": null,
-    "SMA 89 Daily": null,
-    "OBV": null,
-    "MACDs": null,
-    "RSI": null,
-    "Williams": null,
-    "Accum/Dist": null
-};
-
-var chartPatterns = [
-    "Double Top Reversal", "Double Bottom Reversal",
-    "Head And Shoulders Top", "Head And Shoulders bottom",
-    "Falling Wedge", "Rising Wedge", "Rounding Bottom",
-    "Triple Top Reversal", "Triple Bottom Reversal",
-    "Bump and Run Reversal", "Flag, Pennant",
-    "Ascending Triangle", "Descending Triangle",
-    "Rectangle", "Price Channel", "Measured Move - Bullish",
-    "Measured Move - Bearish", "Cup and handle"
-];
-
-
 var stockName;
 var selectedChartPatterns = [];
 var primarySignalScore = 0;
@@ -71,101 +47,6 @@ function getDate() {
     return "£-$-%".replace('£', day).replace('$', month).replace('%', year);
 }
 
-function selectChartPattern(btn) {
-    "use strict";
-    var target = getID('ChartPatterns');
-    //Create Elements
-    var li = document.createElement('li');
-    var id = document.createAttribute('id');
-
-    id.value = btn.id;
-    li = function () {
-        "use strict";
-        li.setAttributeNode(id);
-        li.innerText = id.toString();
-        return li;
-    };
-
-    //CREATE LIST ITEM
-    switch (btn.getAttribute('class')) {
-
-        case ('btn btn-primary'):
-            btn.setAttribute('class', 'btn btn-success checkboxButton');
-            selectedChartPatterns.push(id.toString());
-            target.appendChild(li);
-            break;
-
-        case ('btn btn-success'):
-            btn.setAttribute('class', 'btn btn-primary checkboxButton');
-            selectedChartPatterns.pop(id.toString());
-            target.removeChild(li);
-            break;
-        default:
-            return;
-    }
-
-    return selectedChartPatterns;
-}
-
-function setPrimarySignalScore(btn) {
-    "use strict";
-    var btnClass = btn.getAttribute('class');
-    var id = btn.parentNode.id;
-    var score = btn.innerText;
-
-    switch (btnClass) {
-        case "btn btn-primary":
-            if (!primarySignals.includes(id)) {
-                primarySignals[btn.parentNode.id] = score;
-                primarySignalScore += btn.innerText;
-            }
-
-            btn.setAttribute('class', 'btn btn-success');
-            break;
-
-        case "btn btn-success":
-            primarySignalScore -= score;
-            primarySignals.removeItem(id);
-            break;
-
-        default:
-            return;
-    }
-
-    getID('primarySignalsTotal').innerHTML = "<p><b>$/20</b></p>".replace('$', primarySignalScore);
-}
-
-function createAlert(type, title, msg) {
-    "use strict";
-    var alert = document.createElement('div');
-    alert.setAttribute('class', 'alert alert-{type} alert-dismissible fade show'.replace('{type}', type));
-    alert.setAttribute('role', 'alert');
-
-    var alertTitle = document.createElement('strong');
-    alertTitle.innerText = "{title}".replace('{title}', title);
-    alert.appendChild(alertTitle);
-
-    var alertMessage = document.createElement('a');
-    alertMessage.innerText = "| {msg}".replace('{msg}', msg);
-
-    alert.appendChild(alertMessage);
-    var alertButton = document.createElement('button');
-    alertButton.setAttribute('type', 'button');
-    alertButton.setAttribute('class', 'close');
-    alertButton.setAttribute('data-dismiss', 'alert');
-
-    alertButton.setAttribute('aria-label', 'Close');
-    alert.appendChild(alertButton);
-
-    var alertSpan = document.createElement('span');
-    alertSpan.setAttribute('aria-hidden', 'true');
-    alertSpan.innerText = '&amp;times';
-    alertButton.append(alertSpan);
-
-    console.log('Alert Created', alert);
-
-    return alert;
-}
 
 function updatePercentage(percent) {
     'use strict';
@@ -181,8 +62,27 @@ function updatePercentage(percent) {
 
 }
 
+function EmbedImage(url) {
+    "use strict";
+
+    var elem = document.getElementById('ChartImage');
+    var modalElem = document.getElementById('ModalImage');
+    var image = "<div class='container'> <img id='EmbeddedImage' class='img-fluid rounded' src='{}'><div>".replace('{}', url);
+    elem.innerHTML = image;
+    modalElem.innerHTML = image;
+
+
+}
+
 document.onchange = function () {
     "use strict";
+
+    selectedChartPatterns = [];
+    $('#ChartPatterns input:checked').each(function () {
+        selectedChartPatterns.push($(this).innerText);
+    });
+
+    console.log(selectedChartPatterns);
     var validInputs = document.entryForm.querySelectorAll('valid');
     var invalidInputs = document.entryForm.querySelectorAll('invalid');
 

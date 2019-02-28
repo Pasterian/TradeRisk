@@ -6,9 +6,13 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=yes" name="viewport">
     <link href="../../Resources/CSS/StyleSheet.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="../JS/getQuote.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
     <title>
         Stock Entry
     </title>
@@ -59,7 +63,7 @@
         <p id="author"> </p>
     </div>
 
-    <form id="entryForm" class="was-validated form-group form-control" name="entryForm" enctype="text/plain" action="" method="post" style="background: #e9ecef; color: #383d41" novalidate>
+    <form id="entryForm" class="was-validated form-group form-9 mn,  " name="entryForm" enctype="text/plain" action="" method="post" style="background: #e9ecef; color: #383d41" novalidate>
 
         <div class="container">
             <div class="form-row">
@@ -179,65 +183,117 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row" hidden>
                 <div class="col">
                     <label class="form-control-label" for="StockChartUpload"> Drag and Drop Chart Image</label>
                     <div class="input-group">
                         <div class="input-group-prepend w-100">
                             <div class="input-group-text"><i class="fa fa-upload"> </i></div>
-                            <input id="StockChartUpload" type="file" class="custom-file w-100" multiple data-show-upload="true" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+                            <input id="StockChartUpload" type="file" class="custom-file w-100" data-show-upload="true" data-show-caption="true" data-msg-placeholder="Select {files} for upload..." accept="image/png, image/jpeg">
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label class="form-control-label" for="StockChartLink">Paste Image Link</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend w-100">
+                            <div class="input-group-text"><i class="fa fa-upload"> </i></div>
+                            <input id="ImageLink" type="text" class="form-control form-control-success mb-0" id="StockChartLink" placeholder="https://paste.image.link.com" autocomplete='off' novalidate>
+                            <button style="margin-bottom: -1px;" onclick="EmbedImage(document.getElementById('ImageLink').value)" class="btn btn-outline-secondary" type="button">Insert</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ChartImage">
+
+
+            </div>
+
+            <div class="container" hidden>
+                <button type="button" class="btn btn-primary btn-block" data-toggle='modal' data-target='#ImageModal'>Expand Image</button>
+            </div>
+        </div>
+
+
+        <div style="width:100%;" class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="ImageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ImageModalLabel">Chart Image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="ModalImage" class="modal-body">
+                        test
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
 
+
+
+
         <div class="container">
             <h4><label class="form-control-label" for="ChartPatterns"> Chart Pattern(s) </label></h4>
 
-            <div class="btn-group-toggle" id="ChartPatterns" role="group" data-toggle="buttons">
+            <div class="btn-group-toggle" id="ChartPatterns" role="group">
                 <div class="form-row">
                     <div class="col">
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DoubleTopReversal" checked hidden>
-                            Double Top Reversal</label>
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DoubleTopReversal" name="Double Top Reversal"> Double Top Reversal
+                        </label>
 
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DoubleBottomReversal" checked hidden> Double Bottom
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DoubleBottomReversal" hidden name="Double Bottom
+                            Reversal"> Double Bottom
                             Reversal</label>
 
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="HeadAndShouldersTop" checked hidden> Head And
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="HeadAndShouldersTop" hidden name="Head And
+                            Shoulders Top"> Head And
                             Shoulders Top </label>
 
                     </div>
 
                     <div class="col">
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="HeadAndShoulderBottom" checked hidden> Head And
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="HeadAndShoulderBottom" hidden name="Head And
+                            Shoulders bottom"> Head And
                             Shoulders bottom </label>
 
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="TripleTopReversal" checked hidden> Triple Top
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="TripleTopReversal" hidden name="Triple Top
+                            Reversal"> Triple Top
                             Reversal </label>
 
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="TripleBottomReversal" checked hidden> Triple Bottom
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="TripleBottomReversal" hidden name="Triple Bottom
+                            Reversal"> Triple Bottom
                             Reversal </label>
 
                     </div>
 
                     <div class="col">
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="BumpAndRunReversal" checked hidden> Bump and Run
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="BumpAndRunReversal" hidden name="Bump and Run
+                            Reversal"> Bump and Run
                             Reversal </label>
 
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="FlagPennant" checked hidden> Flag, Pennant
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="FlagPennant" hidden name="Flag, Pennant"> Flag, Pennant
                         </label>
 
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="AscendingTriangle" checked hidden> Ascending
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="AscendingTriangle" hidden name="Ascending
+                            Triangle"> Ascending
                             Triangle </label>
 
                     </div>
@@ -246,45 +302,49 @@
                 <div class="form-row">
                     <div class="col">
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DescendingTraingle" checked hidden> Descending
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="DescendingTraingle" hidden name="Descending
+                            Triangle"> Descending
                             Triangle </label>
 
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="Rectangle" checked hidden> Rectangle
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="Rectangle" hidden name="Rectangle"> Rectangle
                         </label>
 
                         <label class="btn btn-outline-danger checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="PriceChannel" checked hidden> Price Channel
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="PriceChannel" hidden name="Price Channel
+                        </label>"> Price Channel
                         </label>
 
                     </div>
 
                     <div class="col">
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="FallingWedge" checked hidden> Falling Wedge
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="FallingWedge" hidden name="Falling Wedge"> Falling Wedge
                         </label>
 
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="RisingEdge" checked hidden> Rising Edge
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="RisingEdge" hidden name="Rising Edge"> Rising Edge
                         </label>
 
                         <label class="btn btn-outline-warning checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="RoundingBottom" checked hidden> Rounding Bottom
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="RoundingBottom" hidden name="Rounding Bottom"> Rounding Bottom
                         </label>
 
                     </div>
 
                     <div class="col">
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="MeasuredMoveBullish" checked hidden> Measured
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="MeasuredMoveBullish" hidden name="Measured
+                            Move-Bullish"> Measured
                             Move-Bullish </label>
 
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="MeasuredMoveBearish" checked hidden> Measured
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="MeasuredMoveBearish" hidden name="Measured
+                            Move-Bearish "> Measured
                             Move-Bearish </label>
 
                         <label class="btn btn-outline-success checkboxButton">
-                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="CupAndHandle" checked hidden> Cup and handle
+                            <input type="checkbox" name="chartPatterns" autocomplete="off" id="CupAndHandle" hidden name="Cup and handle"> Cup and handle
                         </label>
 
                     </div>
@@ -320,11 +380,11 @@
                     <div class="btn-group btn-group-toggle" id="Breakout Quality" data-toggle="buttons">
                         <label class="btn btn-outline-danger">
 
-                            <input type="radio" name="options" autocomplete="off" checked value="1"> 1 </label>
-                        <label class="btn btn-outline-warning"> <input type="radio" name="options" autocomplete="off" checked value="2"> 2 </label>
+                            <input type="radio" name="options" autocomplete="off" value="1" checked> 1 </label>
+                        <label class="btn btn-outline-warning"> <input type="radio" name="options" autocomplete="off" value="2"> 2 </label>
 
                         <label class="btn btn-outline-success">
-                            <input type="radio" name="options" autocomplete="off" checked value="3"> 3 </label>
+                            <input type="radio" name="options" autocomplete="off" value="3"> 3 </label>
 
                     </div>
                 </div>
@@ -334,13 +394,13 @@
 
                     <div class="btn-group btn-group-toggle" id="Volume Quality" data-toggle="buttons">
                         <label class="btn btn-outline-danger">
-                            <input type="radio" name="options" autocomplete="off" checked value="1"> 1 </label>
+                            <input type="radio" name="options" autocomplete="off" value="1" checked> 1 </label>
 
                         <label class="btn btn-outline-warning">
-                            <input type="radio" name="options" autocomplete="off" checked value="2"> 2 </label>
+                            <input type="radio" name="options" autocomplete="off" value="2"> 2 </label>
 
                         <label class="btn btn-outline-success">
-                            <input type="radio" name="options" autocomplete="off" checked value="3"> 3 </label>
+                            <input type="radio" name="options" autocomplete="off" value="3"> 3 </label>
 
                     </div>
                 </div>
@@ -350,13 +410,13 @@
 
                     <div class="btn-group btn-group-toggle" id="SMA 89 Daily" data-toggle="buttons">
                         <label class="btn btn-outline-danger">
-                            <input type="radio" name="options" autocomplete="off" checked value="1"> 1 </label>
+                            <input type="radio" name="options" autocomplete="off" value="1" checked> 1 </label>
 
                         <label class="btn btn-outline-warning">
-                            <input type="radio" name="options" autocomplete="off" checked value="2"> 2 </label>
+                            <input type="radio" name="options" autocomplete="off" value="2"> 2 </label>
 
                         <label class="btn btn-outline-success">
-                            <input type="radio" name="options" autocomplete="off" checked value="3"> 3 </label>
+                            <input type="radio" name="options" autocomplete="off" value="3"> 3 </label>
 
                     </div>
                 </div>
@@ -370,7 +430,7 @@
                             OBV
                         </h5>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="OBV">
-                            <label class="btn btn-outline-danger"><input autocomplete="off" checked name="options" type="radio" value="1"> 1</label> <label class="btn btn-outline-warning"><input autocomplete="off" checked name="options" type="radio" value="2"> 2</label> <label class="btn btn-outline-success"><input autocomplete="off" checked name="options" type="radio" value="3"> 3</label>
+                            <label class="btn btn-outline-danger"><input autocomplete="off" name="options" type="radio" value="1" checked> 1</label> <label class="btn btn-outline-warning"><input autocomplete="off" name="options" type="radio" value="2"> 2</label> <label class="btn btn-outline-success"><input autocomplete="off" name="options" type="radio" value="3"> 3</label>
                         </div>
                     </div>
                     <div class="card-body">
@@ -378,8 +438,8 @@
                             MACDs
                         </h5>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="MACDs">
-                            <label class="btn btn-outline-danger"><input autocomplete="off" checked name="options" type="radio" value="0"> 0</label>
-                            <label class="btn btn-outline-success"><input autocomplete="off" checked name="options" type="radio" value="1"> 1</label>
+                            <label class="btn btn-outline-danger"><input autocomplete="off" name="options" type="radio" value="0" checked> 0</label>
+                            <label class="btn btn-outline-success"><input autocomplete="off" name="options" type="radio" value="1"> 1</label>
                         </div>
                     </div>
                     <div class="card-body">
@@ -388,9 +448,9 @@
                         </h5>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="RSI">
                             <label class="btn btn-outline-danger">
-                                <input autocomplete="off" checked name="options" type="radio" value="0"> 0</label>
+                                <input autocomplete="off" name="options" type="radio" value="0" checked> 0</label>
                             <label class="btn btn-outline-success">
-                                <input autocomplete="off" checked name="options" type="radio" value="1"> 1</label>
+                                <input autocomplete="off" name="options" type="radio" value="1"> 1</label>
                         </div>
                     </div>
                 </div>
@@ -402,9 +462,9 @@
                         </h5>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Williams">
                             <label class="btn btn-outline-danger">
-                                <input autocomplete="off" checked name="options" type="radio" value="0"> 0</label>
+                                <input autocomplete="off" name="options" type="radio" value="0" checked> 0</label>
                             <label class="btn btn-outline-success">
-                                <input autocomplete="off" checked name="options" type="radio" value="1"> 1</label>
+                                <input autocomplete="off" name="options" type="radio" value="1"> 1</label>
                         </div>
                     </div>
                     <div class="card-body">
@@ -413,9 +473,9 @@
                         </h5>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Accum/ Dist">
                             <label class="btn btn-outline-danger">
-                                <input autocomplete="off" checked name="options" type="radio" value="0"> 0</label>
+                                <input autocomplete="off" name="options" type="radio" value="0" checked> 0</label>
                             <label class="btn btn-outline-success">
-                                <input autocomplete="off" checked name="options" type="radio" value="1"> 1</label>
+                                <input autocomplete="off" name="options" type="radio" value="1"> 1</label>
                         </div>
                     </div>
                     <div class="card-body">
@@ -835,7 +895,7 @@
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <label aria-hidden="true" for="DidntTakeTrade"></label> <input class="custom-control custom-chechbox custom-control-input custom-checkbox" aria-label="DidntTakeTrade" id="DidntTakeTrade" type="checkbox">
+                                <label aria-hidden="true" for="DidntTakeTrade"></label> <input aria-label="DidntTakeTrade" id="DidntTakeTrade" type="checkbox">
                             </div>
 
                         </div>
@@ -886,7 +946,6 @@
                             <div class="input-group-text">
                                 <label aria-hidden="true" for="Entered"></label> <input aria-label="Entered" id="Entered" type="checkbox">
                             </div>
-                            >
                         </div>
                         <label for="EnteredValue"></label><input aria-label="EnteredValue" class="form-control" id="EnteredValue" readonly="readonly" type="text" value="Entered Too Soon / Late">
                     </div>
@@ -921,12 +980,42 @@
 
                 <div class="btn-group w-100" id="ActionButtons" style="margin-top : 10 px">
                     <button class="btn btn-danger w-100" onclick="createAlert('ActionButtons', 'warning', 'Reset Complete', 'Entry form has been cleared successfully!')" type="button">Reset <span><i class="fa fa-window-close"></i></span></button>
-                    <button class="btn btn-info w-100" onclick="" type="button">Info <span><i class="fa fa-info"></i></span>
+                    <button class="btn btn-info w-100" onclick="window.print();" type="button">Info <span><i class="fa fa-info"></i></span>
                     </button>
                     <button class="btn btn-success w-100" type="submit">Submit <span><i class="fa fa-check-square"></i></span></button>
                 </div>
             </div>
 
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="width:100%;height:20%;">
+                <div id="LiveChart">
+                    <div class="tradingview-widget-copyright"><a href="https://uk.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"></a></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                    <script type="text/javascript">
+                        new TradingView.widget({
+                            "width": "100%",
+                            "symbol": "AAPL",
+                            "interval": "D",
+                            "timezone": "GMT",
+                            "theme": "light",
+                            "style": "1",
+                            "locale": "uk",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": true,
+                            "withdateranges": true,
+                            "hide_side_toolbar": false,
+                            "allow_symbol_change": true,
+                            "details": true,
+                            "hotlist": true,
+                            "calendar": true,
+                            "container_id": "LiveChart"
+                        });
+
+                    </script>
+                    <!-- TradingView Widget END -->
+
+                </div>
+            </div>
         </div>
 
         <!--==Scripts== -->

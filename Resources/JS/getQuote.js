@@ -17,10 +17,11 @@ function readTextFile(file, callback) {
         }
     };
     rawFile.send(null);
+    console.log(rawFile);
 }
 
 function getQuote(elem) {
-    var id = getID(elem.id);
+    var id = document.getElementById(elem.id);
     console.log(id);
     readTextFile("../JSON/data.json", function (text) {
         var data = JSON.parse(text);
