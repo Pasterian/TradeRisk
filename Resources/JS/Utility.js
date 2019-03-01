@@ -5,6 +5,41 @@ var primarySignalScore = 0;
 var stockData = {};
 var percentage;
 
+var options = {
+    url: "../JSON/stocks.json",
+
+    getValue: "Security Name",
+    placeholder: "Apple, Inc.",
+
+    list: {
+        match: {
+            enabled: true
+        },
+        sort: {
+            enabled: false
+        },
+        showAnimation: {
+            type: "fade", //normal|slide|fade
+            time: 400,
+            callback: function () {}
+        },
+
+        hideAnimation: {
+            type: "slide", //normal|slide|fade
+            time: 400,
+            callback: function () {}
+        }
+    }
+};
+
+$("#StockName").easyAutocomplete(options);
+
+
+$(document).ready(function () {
+    $('#example').DataTable({
+        "ajax": '../ajax/data/arrays.txt'
+    });
+});
 
 function writeData(elem) {
     "use strict";
@@ -95,3 +130,44 @@ document.onchange = function () {
 
     }
 };
+
+
+var document = document;
+
+function getID(id) {
+    "use strict";
+    return document.getElementById(id);
+}
+
+function readTextFile(file, callback) {
+    "use strict";
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4 && rawFile.status === 200) {
+            callback(rawFile.responseText);
+
+        }
+    };
+    rawFile.send(null);
+    console.log(rawFile);
+}
+
+function getQuote() {
+    //var id = document.getElementById(elem.id);
+    //console.log(id);
+
+    readTextFile("../JSON/data.json", function (text) {
+        var data = JSON.parse(text);
+        var ran = Math.floor(Math.random() * Math.floor(data.length));
+        for (var i = 0; i < data.length; i++) {
+
+            document.getElementById('quote').innerHTML = '<p id="quote" class="lead text-md-center"> {q} <p id="author" class="text-sm" style="font-style: oblique;">\"{a}\"</p>'.replace('{q}', data[ran]['quote']).replace('{a}', data[ran]['author']);
+
+        }
+
+    });
+}
+
+getQuote();
